@@ -33,14 +33,14 @@ def init(configpath):
 
 def index(request):
     djv = init(DEFAULT_CONFIG_FILE)
-    song = djv.recognize(FileRecognizer, os.path.join(dir, 'mp3/Brad-Sucks--Total-Breakdown.mp3'))
+    song = djv.recognize(FileRecognizer, os.path.join(dir, 'mp3/A1.mp3'))
     print "From file we recognized: %s\n" % song
     return HttpResponse("From file we recognized: %s\n" % song)
 
 @csrf_exempt
 def simple_upload(request):
-    if request.method == 'POST' and request.FILES['song']:
-        myfile = request.FILES['song']
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save('music_recognizer/queue/'+myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
